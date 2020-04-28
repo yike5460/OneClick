@@ -1,0 +1,41 @@
+{
+  "detail-type": "INSERT",
+  "detail": {
+    "ApproximateCreationDateTime": 1587871326.0,
+    "Keys": {
+      "metaData": {
+        "S": "Details"
+      },
+      "Id": {
+        "S": "5049798849b3438f8f0cfcd7531fa81a"
+      }
+    },
+    "NewImage": {
+      "metaData": {
+        "S": "Details"
+      },
+      "hackathonState": {
+        "S": "start"
+      },
+      "hackathonName": {
+        "S": "StarCraft"
+      },
+      "descrption": {
+        "S": "StarCraft description"
+      },
+      "Id": {
+        "S": "5049798849b3438f8f0cfcd7531fa81a"
+      },
+      "hackathonCreateDate": {
+        "S": "2020-04-17T03:46:01:819+00:00"
+      },
+      "hackathonStartTime": {
+        "S": "2020-04-17T04:06:34:629+00:00"
+      }
+    },
+    "SequenceNumber": "39513100000000009640206279",
+    "SizeBytes": 265,
+    "StreamViewType": "NEW_AND_OLD_IMAGES"
+  },
+  "placeholder": "null"
+}

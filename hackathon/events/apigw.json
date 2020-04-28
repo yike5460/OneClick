@@ -1,0 +1,123 @@
+{
+  "resource": "/leaderBoard",
+  "path": "/leaderBoard",
+  "httpMethod": "GET",
+  "headers": {
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "HK",
+    "Host": "xvj56vagug.execute-api.ap-northeast-1.amazonaws.com",
+    "Postman-Token": "3a01f455-5873-44d2-8dd4-f6061daef130",
+    "User-Agent": "PostmanRuntime/7.24.1",
+    "Via": "1.1 ceabec403784e3c3155b50578b3935fd.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "5S8ldIXCe3MpbXXTbN7hqkZa8tL7lp1F3xSIMMX6iTTkf4B2rQZVWA==",
+    "x-amz-date": "20200426T073519Z",
+    "X-Amzn-Trace-Id": "Root=1-5ea539b8-d3d468b706deedbed80fea5c",
+    "X-Forwarded-For": "13.248.48.19, 130.176.25.89",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": [
+      "*/*"
+    ],
+    "Accept-Encoding": [
+      "gzip, deflate, br"
+    ],
+    "CloudFront-Forwarded-Proto": [
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer": [
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer": [
+      "false"
+    ],
+    "CloudFront-Viewer-Country": [
+      "HK"
+    ],
+    "Host": [
+      "xvj56vagug.execute-api.ap-northeast-1.amazonaws.com"
+    ],
+    "Postman-Token": [
+      "3a01f455-5873-44d2-8dd4-f6061daef130"
+    ],
+    "User-Agent": [
+      "PostmanRuntime/7.24.1"
+    ],
+    "Via": [
+      "1.1 ceabec403784e3c3155b50578b3935fd.cloudfront.net (CloudFront)"
+    ],
+    "X-Amz-Cf-Id": [
+      "5S8ldIXCe3MpbXXTbN7hqkZa8tL7lp1F3xSIMMX6iTTkf4B2rQZVWA=="
+    ],
+    "x-amz-date": [
+      "20200426T073519Z"
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-5ea539b8-d3d468b706deedbed80fea5c"
+    ],
+    "X-Forwarded-For": [
+      "13.248.48.19, 130.176.25.89"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": {
+    "hackathonName": "StarCraftBest"
+  },
+  "multiValueQueryStringParameters": {
+    "hackathonName": [
+      "StarCraftBest"
+    ]
+  },
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "9wnryv",
+    "resourcePath": "/leaderBoard",
+    "httpMethod": "GET",
+    "extendedRequestId": "LlX03FgztjMFr-Q=",
+    "requestTime": "26/Apr/2020:07:35:20 +0000",
+    "path": "/Prod/leaderBoard",
+    "accountId": "275937937240",
+    "protocol": "HTTP/1.1",
+    "stage": "Prod",
+    "domainPrefix": "xvj56vagug",
+    "requestTimeEpoch": 1587886520634,
+    "requestId": "e2e564fe-20eb-410e-966f-e49833c2131e",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "13.248.48.19",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "PostmanRuntime/7.24.1",
+      "user": null
+    },
+    "domainName": "xvj56vagug.execute-api.ap-northeast-1.amazonaws.com",
+    "apiId": "xvj56vagug"
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

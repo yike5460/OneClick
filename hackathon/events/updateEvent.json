@@ -1,0 +1,64 @@
+{
+  "detail-type": "MODIFY",
+  "detail": {
+    "ApproximateCreationDateTime": 1587716236.0,
+    "Keys": {
+      "metaData": {
+        "S": "Details"
+      },
+      "Id": {
+        "S": "4049798849b3438f8f0cfcd7531fa81a"
+      }
+    },
+    "NewImage": {
+      "metaData": {
+        "S": "Details"
+      },
+      "hackathonState": {
+        "S": "start"
+      },
+      "hackathonName": {
+        "S": "StarCraftTheBest"
+      },
+      "descrption": {
+        "S": "spring workshop description"
+      },
+      "Id": {
+        "S": "4049798849b3438f8f0cfcd7531fa81a"
+      },
+      "hackathonCreateDate": {
+        "S": "2020-04-17T03:46:01:819+00:00"
+      },
+      "hackathonStartTime": {
+        "S": "2020-04-17T04:06:34:629+00:00"
+      }
+    },
+    "OldImage": {
+      "metaData": {
+        "S": "Details"
+      },
+      "hackathonState": {
+        "S": "start"
+      },
+      "hackathonName": {
+        "S": "StarCraft"
+      },
+      "descrption": {
+        "S": "spring workshop description"
+      },
+      "Id": {
+        "S": "4049798849b3438f8f0cfcd7531fa81a"
+      },
+      "hackathonCreateDate": {
+        "S": "2020-04-17T03:46:01:819+00:00"
+      },
+      "hackathonStartTime": {
+        "S": "2020-04-17T04:06:34:629+00:00"
+      }
+    },
+    "SequenceNumber": "31206300000000037492214479",
+    "SizeBytes": 500,
+    "StreamViewType": "NEW_AND_OLD_IMAGES"
+  },
+  "placeholder": "null"
+}

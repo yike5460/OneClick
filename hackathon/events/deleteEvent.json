@@ -1,0 +1,41 @@
+{
+  "detail-type": "REMOVE",
+  "detail": {
+    "ApproximateCreationDateTime": 1587875095.0,
+    "Keys": {
+      "metaData": {
+        "S": "userId-86f3fb2f7a5b4721beb2c6b4f39a5571"
+      },
+      "Id": {
+        "S": "7049798849b3438f8f0cfcd7531fa81a"
+      }
+    },
+    "OldImage": {
+      "metaData": {
+        "S": "userId-86f3fb2f7a5b4721beb2c6b4f39a5571"
+      },
+      "password": {
+        "S": "example"
+      },
+      "userCreateDate": {
+        "S": "2020-04-18T09:18:34:660+08:00"
+      },
+      "projectScore": {
+        "S": "80"
+      },
+      "Id": {
+        "S": "7049798849b3438f8f0cfcd7531fa81a"
+      },
+      "userName": {
+        "S": "ycq"
+      },
+      "email": {
+        "S": "ycq@example.com"
+      }
+    },
+    "SequenceNumber": "39514500000000009640887073",
+    "SizeBytes": 265,
+    "StreamViewType": "NEW_AND_OLD_IMAGES"
+  },
+  "placeholder": "null"
+}

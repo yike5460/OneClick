@@ -1,0 +1,109 @@
+{
+  "resource": "/sms",
+  "path": "/sms/",
+  "httpMethod": "POST",
+  "headers": {
+      "Accept": "*/*",
+      "CloudFront-Forwarded-Proto": "https",
+      "CloudFront-Is-Desktop-Viewer": "true",
+      "CloudFront-Is-Mobile-Viewer": "false",
+      "CloudFront-Is-SmartTV-Viewer": "false",
+      "CloudFront-Is-Tablet-Viewer": "false",
+      "CloudFront-Viewer-Country": "HK",
+      "content-type": "application/json",
+      "Host": "ha0j5xs9ca.execute-api.us-west-2.amazonaws.com",
+      "User-Agent": "curl/7.54.0",
+      "Via": "2.0 8730481efae5d62c03ca8bf771c54e2f.cloudfront.net (CloudFront)",
+      "X-Amz-Cf-Id": "mv5kNL0h0U0Q_1EuMRnOPXX5ObZfPM2R_PlRSq57SMnnUiMB7lWtMg==",
+      "X-Amzn-Trace-Id": "Root=1-5e91d43d-3e99e8b1664c3757dc90407d",
+      "X-Forwarded-For": "13.248.48.12, 130.176.25.82",
+      "X-Forwarded-Port": "443",
+      "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+      "Accept": [
+          "*/*"
+      ],
+      "CloudFront-Forwarded-Proto": [
+          "https"
+      ],
+      "CloudFront-Is-Desktop-Viewer": [
+          "true"
+      ],
+      "CloudFront-Is-Mobile-Viewer": [
+          "false"
+      ],
+      "CloudFront-Is-SmartTV-Viewer": [
+          "false"
+      ],
+      "CloudFront-Is-Tablet-Viewer": [
+          "false"
+      ],
+      "CloudFront-Viewer-Country": [
+          "HK"
+      ],
+      "content-type": [
+          "application/json"
+      ],
+      "Host": [
+          "ha0j5xs9ca.execute-api.us-west-2.amazonaws.com"
+      ],
+      "User-Agent": [
+          "curl/7.54.0"
+      ],
+      "Via": [
+          "2.0 8730481efae5d62c03ca8bf771c54e2f.cloudfront.net (CloudFront)"
+      ],
+      "X-Amz-Cf-Id": [
+          "mv5kNL0h0U0Q_1EuMRnOPXX5ObZfPM2R_PlRSq57SMnnUiMB7lWtMg=="
+      ],
+      "X-Amzn-Trace-Id": [
+          "Root=1-5e91d43d-3e99e8b1664c3757dc90407d"
+      ],
+      "X-Forwarded-For": [
+          "13.248.48.12, 130.176.25.82"
+      ],
+      "X-Forwarded-Port": [
+          "443"
+      ],
+      "X-Forwarded-Proto": [
+          "https"
+      ]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+      "resourceId": "9p8yo1",
+      "resourcePath": "/sms",
+      "httpMethod": "POST",
+      "extendedRequestId": "K04ZnFp5PHcFxwA=",
+      "requestTime": "11/Apr/2020:14:29:17 +0000",
+      "path": "/Prod/sms/",
+      "accountId": "705247044519",
+      "protocol": "HTTP/1.1",
+      "stage": "Prod",
+      "domainPrefix": "ha0j5xs9ca",
+      "requestTimeEpoch": 1586615357447,
+      "requestId": "018761e5-937f-46a9-baf3-8c2f412ca4c3",
+      "identity": {
+          "cognitoIdentityPoolId": null,
+          "accountId": null,
+          "cognitoIdentityId": null,
+          "caller": null,
+          "sourceIp": "13.248.48.12",
+          "principalOrgId": null,
+          "accessKey": null,
+          "cognitoAuthenticationType": null,
+          "cognitoAuthenticationProvider": null,
+          "userArn": null,
+          "userAgent": "curl/7.54.0",
+          "user": null
+      },
+      "domainName": "ha0j5xs9ca.execute-api.us-west-2.amazonaws.com",
+      "apiId": "ha0j5xs9ca"
+  },
+  "body": "{\"Number\": \"+6588583978\", \"SMS\": \"Test message from AWS!\"}",
+  "isBase64Encoded": false
+}
