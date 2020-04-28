@@ -41,3 +41,6 @@ create Pinpoint policy and attach to deployed Lambda function manually
 ```shell
 curl -H "Content-Type:application/json" -X POST -d '{"Number": "+123456", "SMS": "Test message from AWS!"}' https://<xxxx>.execute-api.us-west-2.amazonaws.com/Prod/sms
 ```
+
+## 目前pinpoint支持的区域
+具体参见https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
