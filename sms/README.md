@@ -59,4 +59,4 @@ create Pinpoint policy and attach to deployed Lambda function manually
 curl -H "Content-Type:application/json" -X POST -d '{"Number": "+123456", "SMS": "Test message from AWS!"}' https://<xxxx>.execute-api.us-west-2.amazonaws.com/Prod/sms
 ```
 您也可以通过Postman来操作，见下图所示
-![Postman](img/postman.png)
+![Postman](https://github.com/yike5460/OneClick/blob/master/sms/img/postman.png)
