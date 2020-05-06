@@ -10,9 +10,13 @@ Globals:
     Timeout: 3
 
 Parameters:
+  SNSorPinpoint:
+    Type: String
+    Default: SNS
+    Description: Backend Application.
   PinPointID:
     Type: String
-    Default: "1234567890"
+    Default: "1d205f0b0bb54f1a8499e1e60ce7f553"
     Description: Amazon Pinpint Application ID.
 
 Resources:
@@ -20,32 +24,77 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: src/
-      Handler: app.pinpoint_handler
+      Handler: app.handler
       Runtime: python3.8
       Environment:
         Variables:
+          SNSorPinpoint: !Ref SNSorPinpoint
           PinPointID: !Ref PinPointID
       Events:
-        SmsSend:
+        SmsSendAPI:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
+            RestApiId: !Ref SmsSendApi
             Path: /sms
             Method: POST
-      # Policies:
-      #     - SNSCrudPolicy:
-      #       Description: 'SNS policy'
-      #       Statement:
-      #         - Effect: Allow
-      #           Action:
-      #             - sns: '*'
-      #           Resource: '*'
+      Policies:
+          - AmazonSNSFullAccess
+          # - PinpointSMS:
+          #     Statement:
+          #     - Effect: Allow
+          #       Action: 
+          #         - mobiletargeting: '*'
+          #       Resource: '*'
+
+  SmsSendApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: SendSMS
+      StageName: Prod
+      # omit in lambda proxy, more on https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+      # Cors:
+      #   AllowMethods: "'*'"
+      #   AllowHeaders: "'*'"
+      #   AllowOrigin: "'http://localhost:8080'"
+      #   MaxAge: "'600'"
+      #   AllowCredentials: True
+      # Auth:
+      #   ApiKeyRequired: false # OPTIONAL
+      #   UsagePlan: # OPTIONAL
+      #     CreateUsagePlan: NONE # REQUIRED if UsagePlan property is set. accepted values: PER_API, SHARED, NONE
+      #   DefaultAuthorizer: MyCognitoAuth # OPTIONAL, if you use IAM permissions, specify AWS_IAM.
+      #   AddDefaultAuthorizerToCorsPreflight: false # OPTIONAL; Default: true
+      #   ResourcePolicy:
+      #     CustomStatements:
+      #       - Effect: Allow
+      #         Principal: *
+      #         Action: execute-api:Invoke
+      #     #   ...
+      #     # AwsAccountWhitelist: [<list of account ids>]
+      #     # AwsAccountBlacklist: [<list of account ids>]
+      #     # IpRangeWhitelist: [<list of ip ranges>]
+      #     # IpRangeBlacklist: [<list of ip ranges>]
+      #     # SourceVpcWhitelist: [<list of vpc/vpce endpoint ids>]
+      #     # SourceVpcBlacklist: [<list of vpc/vpce endpoint ids>]
+      #   # For AWS_IAM:
+      #   # DefaultAuthorizer: AWS_IAM
+      #   # InvokeRole: NONE # CALLER_CREDENTIALS by default unless overridden
+      #     Authorizers: MyCognitoAuth
+      #       MyCognitoAuth:
+      #         UserPoolArn: !GetAtt MyCognitoUserPool.Arn # Can also accept an array
+      #         AuthorizationScopes:
+      #           - scope1 # List of authorization scopes
+      #         Identity: # OPTIONAL
+      #           Header: MyAuthorizationHeader # OPTIONAL; Default: 'Authorization'
+      #           ValidationExpression: myauthvalidationexpression # OPTIONAL
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  SmsSendApi:
-    Description: "API Gateway endpoint URL for Prod stage for EventFanout function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/prod/sms/"
+  SmsSendApiUrl:
+    Description: "API Gateway endpoint URL for Prod stage for SMS sending function"
+    Value: !Sub "https://${SmsSendApi}.execute-api.${AWS::Region}.amazonaws.com/${SmsSendApi.Stage}/sms/"
   EventFanout:
     Description: "EventFanout Lambda Function ARN"
     Value: !GetAtt EventFanout.Arn
