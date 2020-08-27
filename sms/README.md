@@ -7,6 +7,14 @@
 
 注意Pinpoint有金额的限制，会影响能可发送短信的数量。点击此处[了解如何提高该限额](https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-awssupport-spend-threshold.html "了解如何提高该限额")
 
+目前该方案AWS Pinpoint服务限制如下：
+
+![voiceQuota](https://github.com/yike5460/OneClick/blob/master/sms/img/voiceQuota.png)
+
+![smsQuota](https://github.com/yike5460/OneClick/blob/master/sms/img/smsQuota.png)
+
+点击此处[了解限额细节](https://docs.aws.amazon.com/zh_cn/pinpoint/latest/developerguide/quotas.html "了解限额细节")
+
 ## install SAM
 在此我们会利用到SAM工具来实现关键服务的模版编排，编译测试和一键部署。[了解什么是SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html "了解什么是SAM")以及如何[安装SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html "安装SAM")
 
