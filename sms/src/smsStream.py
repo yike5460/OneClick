@@ -19,6 +19,7 @@ import json
 import logging
 import requests
 import base64
+import time
 from os import getenv
 from botocore.exceptions import ClientError
 
@@ -54,7 +55,6 @@ def handler(event, context):
         payload=base64.b64decode(record["kinesis"]["data"])
         print("Decoded payload: " + payload.decode())
         rawStringData = payload.decode()
-        
         # adaption for alicloud json format
         # {
         #     "phone_number" : "13900000001",
@@ -133,10 +133,19 @@ def handler(event, context):
 
         # concatenate payload
         finalPayload = {}
-        if json.loads(rawStringData)["attributes"] == "_SMS.SUCCESS":
+        if json.loads(rawStringData)["event_type"] == "_SMS.SUCCESS":
             finalPayload['phone_number'] = json.loads(rawStringData)["attributes"]["destination_phone_number"]
-            finalPayload['send_time'] = json.loads(rawStringData)["event_timestamp"]
-            finalPayload['report_time'] = json.loads(rawStringData)["arrival_timestamp"]
+
+            # change to localtime
+            time_local = time.localtime(json.loads(rawStringData)["event_timestamp"]/1000)
+            # format as (2016-05-05 20:28:54)
+            finalPayload['send_time'] = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
+
+            # change to localtime
+            time_local = time.localtime(json.loads(rawStringData)["arrival_timestamp"]/1000)
+            # format as (2016-05-05 20:28:54)
+            finalPayload['report_time'] = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
+
             finalPayload['success'] = (json.loads(rawStringData)["attributes"]["record_status"] == "DELIVERED")
             finalPayload['err_code'] = json.loads(rawStringData)["attributes"]["record_status"]
             finalPayload['err_msg'] = json.loads(rawStringData)["event_type"]
@@ -150,14 +159,23 @@ def handler(event, context):
             finalPayload['mcc_mnc'] = json.loads(rawStringData)["attributes"]["mcc_mnc"]
             finalPayload['metrics_price'] = json.loads(rawStringData)["metrics"]["price_in_millicents_usd"]
 
-        elif json.loads(rawStringData)["attributes"] == "_SMS.FAILURE":
+        elif json.loads(rawStringData)["event_type"] == "_SMS.FAILURE":
             # add error handler for destination_phone_number and mcc_mnc
             if "destination_phone_number" in json.loads(rawStringData)["attributes"]:
                 finalPayload['phone_number'] = json.loads(rawStringData)["attributes"]["destination_phone_number"]
             else:
                 finalPayload['phone_number'] = ""
-            finalPayload['send_time'] = json.loads(rawStringData)["event_timestamp"]
-            finalPayload['report_time'] = json.loads(rawStringData)["arrival_timestamp"]
+
+            # change to localtime
+            time_local = time.localtime(json.loads(rawStringData)["event_timestamp"]/1000)
+            # format as (2016-05-05 20:28:54)
+            finalPayload['send_time'] = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
+
+            # change to localtime
+            time_local = time.localtime(json.loads(rawStringData)["arrival_timestamp"]/1000)
+            # format as (2016-05-05 20:28:54)
+            finalPayload['report_time'] = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
+
             finalPayload['success'] = (json.loads(rawStringData)["attributes"]["record_status"] == "DELIVERED")
             finalPayload['err_code'] = json.loads(rawStringData)["attributes"]["record_status"]
             finalPayload['err_msg'] = json.loads(rawStringData)["event_type"]
@@ -175,5 +193,6 @@ def handler(event, context):
             finalPayload['metrics_price'] = json.loads(rawStringData)["metrics"]["price_in_millicents_usd"]
         else:
             logger.info('none attributes matched, return null value instead!')
+        print(finalPayload)
         # response = requests.request("POST", hookURL, headers=headers, data = json.dumps(finalPayload))
         # print(response.text.encode('utf8'))

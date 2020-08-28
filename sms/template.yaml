@@ -18,6 +18,12 @@ Parameters:
     Type: String
     Default: "1d205f0b0bb54f1a8499e1e60ce7f553"
     Description: Amazon Pinpint Application ID.
+  SecurityGroupIds: 
+    Type: List<AWS::EC2::SecurityGroup::Id>
+    Description: Security Group IDs that Lambda will use
+  VpcSubnetIds: 
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: VPC Subnet IDs that Lambda will use (min 2 for HA)
 
 Resources:
   SMSGatewayFunction:
@@ -32,9 +38,9 @@ Resources:
           PinPointID: !Ref PinPointID
       Events:
         SmsSendAPI:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            RestApiId: !Ref SmsSendApi
+            ApiId: !Ref SmsSendApi
             Path: /sms
             Method: POST
       Policies:
@@ -47,9 +53,9 @@ Resources:
           #       Resource: '*'
 
   SmsSendApi:
-    Type: AWS::Serverless::Api
+    Type: AWS::Serverless::HttpApi
     Properties:
-      Name: SendSMS
+      # Name: SendSMS
       StageName: Prod
       # omit in lambda proxy, more on https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
       # Cors:
@@ -95,6 +101,9 @@ Resources:
       Handler: smsStream.handler
       Runtime: python3.8
       Timeout: 10
+      VpcConfig:
+        SecurityGroupIds: !Ref SecurityGroupIds
+        SubnetIds: !Ref VpcSubnetIds
       # Tracing: Active
       Events:
         Stream:
@@ -102,7 +111,10 @@ Resources:
           Properties:
             Stream: !GetAtt DeliveryReceiptStream.Arn
             BatchSize: 100
+            MaximumRetryAttempts: 10
+            MaximumBatchingWindowInSeconds: 30
             StartingPosition: LATEST
+
   DeliveryReceiptStream:
     Type: AWS::Kinesis::Stream
     Properties:

@@ -29,7 +29,10 @@ SAM CLI, version 0.47.0
 
 ## 部署SAM（API Gateway，Lambda）
 ```shell
-# sam build && sam local invoke "EventFanout" -e events/event.json
+# 测试短信发送
+# sam build && sam local invoke "SMSGatewayFunction" -e events/event.json
+# 测试短信回执
+# sam build && sam local invoke "SMSDeliveryReceiptFunction" -e events/kinesis.json
 # sam deploy -g (其中SNSorPinpoint输入SNS或者Pinpoint，PinPointID输入您刚才创建的Project ID，注意您如果不用Pinpoint的话该选项可以忽略)
 ```
 部署完毕后您会看到类似的输出，其中Value后的URL就是后续短信功能调用的URL。
@@ -61,10 +64,21 @@ create Pinpoint policy and attach to deployed Lambda function manually
 }
 ```
 
+## Pinpoint stream event设置
+将stream event设置为SAM创建好的Kinesis Data Stream，同时自动创建IAM Role
+
+## VPC的创建（挂载到消息回执的Lambda函数）
+通过wizard创建public和private vpc，记录对应的subnet id和security group id，用作SAM模版的参数
+
 ## send SMS directly
 其中URL为您部署的API Gateway所输出的URL，它作为您触发短信发送的RESFUL入口，目前仅支持POST操作
 ```shell
-curl -H "Content-Type:application/json" -X POST -d '{"Number": "+123456", "SMS": "Test message from AWS!"}' https://<xxxx>.execute-api.us-west-2.amazonaws.com/Prod/sms
+curl --location --request POST 'https://xxxx.execute-api.us-west-2.amazonaws.com/Prod/sms?PhoneNumbers=+xxxx&SignName&TemplateCode&AccessKeyId&Action=&OutId=&SmsUpExtendCode=&TemplateParam=' \
+--header 'X-Amz-Content-Sha256: xxxx' \
+--header 'X-Amz-Date: 20200828T102741Z' \
+--header 'Authorization: AWS4-HMAC-SHA256 Credential=xxxx/20200828/us-west-2/execute-api/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=xxxx' \
+--header 'Content-Type: text/plain' \
+--data-raw '<your short message to send>'
 ```
 您也可以通过Postman来操作，见下图所示
 ![Postman](https://github.com/yike5460/OneClick/blob/master/sms/img/postman.png)

@@ -1,28 +1,20 @@
 {
-    "event_type": "_SMS.FAILURE",
-    "event_timestamp": 1598594864339,
-    "arrival_timestamp": 1598594864339,
-    "event_version": "3.1",
-    "application": {
-        "app_id": "1d205f0b0bb54f1a8499e1e60ce7f553",
-        "sdk": {}
-    },
-    "client": {
-        "client_id": "2jmj7l5rsw0yvb/vlwaykk/ybwk"
-    },
-    "device": {
-        "platform": {}
-    },
-    "session": {},
-    "attributes": {
-        "number_of_message_parts": "1",
-        "message_id": "fc3qremjc072gp5kmtvkltju34q3g2f5ckhrij00",
-        "sender_request_id": "3f112ae5-9061-40b2-89cb-3c2a846382e3",
-        "record_status": "Failed to send because phoneNumber provided is empty or null.",
-        "iso_country_code": "XX"
-    },
-    "metrics": {
-        "price_in_millicents_usd": 0
-    },
-    "awsAccountId": "705247044519"
+    "Records": [
+        {
+            "kinesis": {
+                "kinesisSchemaVersion": "1.0",
+                "partitionKey": "1119412001",
+                "sequenceNumber": "49610227072700909885807295856591261363135033778179670162",
+                "data": "eyJldmVudF90eXBlIjoiX1NNUy5TVUNDRVNTIiwiZXZlbnRfdGltZXN0YW1wIjoxNTk4NTI3Mjk4MTc3LCJhcnJpdmFsX3RpbWVzdGFtcCI6MTU5ODUyNzI5NzY3MiwiZXZlbnRfdmVyc2lvbiI6IjMuMSIsImFwcGxpY2F0aW9uIjp7ImFwcF9pZCI6IjFkMjA1ZjBiMGJiNTRmMWE4NDk5ZTFlNjBjZTdmNTUzIiwic2RrIjp7fX0sImNsaWVudCI6eyJjbGllbnRfaWQiOiI4N2lmMWF3ZXlhM2FoY256Z25jc29yZXR0cDQifSwiZGV2aWNlIjp7InBsYXRmb3JtIjp7fX0sInNlc3Npb24iOnt9LCJhdHRyaWJ1dGVzIjp7InNlbmRlcl9yZXF1ZXN0X2lkIjoiNzBmNGMwYTgtYmJjMC00NDUzLTlkNTEtOWM3ZjViODQxOWQzIiwiZGVzdGluYXRpb25fcGhvbmVfbnVtYmVyIjoiKzY1ODg1ODM5NzgiLCJyZWNvcmRfc3RhdHVzIjoiREVMSVZFUkVEIiwiaXNvX2NvdW50cnlfY29kZSI6IlNHIiwibWNjX21uYyI6IjUyNTAwMyIsIm51bWJlcl9vZl9tZXNzYWdlX3BhcnRzIjoiMSIsIm1lc3NhZ2VfaWQiOiJhNmtxaGtoMnBrNzJ2bGcwZ2huZnFibDZvbmh1bTZobWs3am5xdm8wIiwibWVzc2FnZV90eXBlIjoiVHJhbnNhY3Rpb25hbCIsIm9yaWdpbmF0aW9uX3Bob25lX251bWJlciI6IlNlbmRlcklkQVdTIn0sIm1ldHJpY3MiOnsicHJpY2VfaW5fbWlsbGljZW50c191c2QiOjUzNzUuMH0sImF3c0FjY291bnRJZCI6IjcwNTI0NzA0NDUxOSJ9Cg==",
+                "approximateArrivalTimestamp": 1598527369.275
+            },
+            "eventSource": "aws:kinesis",
+            "eventVersion": "1.0",
+            "eventID": "shardId-000000000009:49610227072700909885807295856591261363135033778179670162",
+            "eventName": "aws:kinesis:record",
+            "invokeIdentityArn": "arn:aws:iam::705247044519:role/sms-EventFanoutRole-19EB5QI3QL26G",
+            "awsRegion": "us-west-2",
+            "eventSourceARN": "arn:aws:kinesis:us-west-2:705247044519:stream/deliveryReceipt"
+        }
+    ]
 }
