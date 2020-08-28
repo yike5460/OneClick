@@ -12,15 +12,15 @@
         "CloudFront-Is-Tablet-Viewer": "false",
         "CloudFront-Viewer-Country": "HK",
         "Content-Type": "text/plain",
-        "Host": "nt95hg3y23.execute-api.us-west-2.amazonaws.com",
-        "Postman-Token": "ab51ff9a-3c8d-4e96-8774-db2aadb7bbce",
+        "Host": "whtn9osbhi.execute-api.us-west-2.amazonaws.com",
+        "Postman-Token": "0b84a82d-bd54-4bf8-9d23-d3548fbe23d7",
         "User-Agent": "PostmanRuntime/7.26.1",
-        "Via": "1.1 ad0287f9f263e70aa0a52b05ac6ca798.cloudfront.net (CloudFront)",
-        "X-Amz-Cf-Id": "nTWXU6TtdAWtQXWXyaZtkaWrliSZPhCixvVKW0Vy9Jpq0FlVVDvBaQ==",
-        "x-amz-content-sha256": "5b4009c64835c41b97d05dfe4a9695a366840e05d3200ba694a5c8d755c69544",
-        "x-amz-date": "20200827T042938Z",
-        "X-Amzn-Trace-Id": "Root=1-5f4736b2-d99f26b413a1b3b4256e9e54",
-        "X-Forwarded-For": "13.248.48.16, 64.252.139.90",
+        "Via": "1.1 7d10f72a0599802fbc9679c1808688d2.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "rH_hbqNg0kvNaQgH0R80TQCtlVZJitFzAEVypPIUEpj0nlGZt5-nyQ==",
+        "x-amz-content-sha256": "b7923281ba70eae21effd92f0b0e5fddc4611523d129b38acad87e9748c791a1",
+        "x-amz-date": "20200828T061110Z",
+        "X-Amzn-Trace-Id": "Root=1-5f489ffe-748887f021ff8d20a8441098",
+        "X-Forwarded-For": "13.248.48.7, 130.176.25.81",
         "X-Forwarded-Port": "443",
         "X-Forwarded-Proto": "https"
     },
@@ -53,31 +53,31 @@
             "text/plain"
         ],
         "Host": [
-            "nt95hg3y23.execute-api.us-west-2.amazonaws.com"
+            "whtn9osbhi.execute-api.us-west-2.amazonaws.com"
         ],
         "Postman-Token": [
-            "ab51ff9a-3c8d-4e96-8774-db2aadb7bbce"
+            "0b84a82d-bd54-4bf8-9d23-d3548fbe23d7"
         ],
         "User-Agent": [
             "PostmanRuntime/7.26.1"
         ],
         "Via": [
-            "1.1 ad0287f9f263e70aa0a52b05ac6ca798.cloudfront.net (CloudFront)"
+            "1.1 7d10f72a0599802fbc9679c1808688d2.cloudfront.net (CloudFront)"
         ],
         "X-Amz-Cf-Id": [
-            "nTWXU6TtdAWtQXWXyaZtkaWrliSZPhCixvVKW0Vy9Jpq0FlVVDvBaQ=="
+            "rH_hbqNg0kvNaQgH0R80TQCtlVZJitFzAEVypPIUEpj0nlGZt5-nyQ=="
         ],
         "x-amz-content-sha256": [
-            "5b4009c64835c41b97d05dfe4a9695a366840e05d3200ba694a5c8d755c69544"
+            "b7923281ba70eae21effd92f0b0e5fddc4611523d129b38acad87e9748c791a1"
         ],
         "x-amz-date": [
-            "20200827T042938Z"
+            "20200828T061110Z"
         ],
         "X-Amzn-Trace-Id": [
-            "Root=1-5f4736b2-d99f26b413a1b3b4256e9e54"
+            "Root=1-5f489ffe-748887f021ff8d20a8441098"
         ],
         "X-Forwarded-For": [
-            "13.248.48.16, 64.252.139.90"
+            "13.248.48.7, 130.176.25.81"
         ],
         "X-Forwarded-Port": [
             "443"
@@ -89,77 +89,60 @@
     "queryStringParameters": {
         "AccessKeyId": "",
         "Action": "",
-        "Format": "",
-        "From": "",
-        "Message": "",
-        "Signature": "SignatureDemo",
-        "SignatureMethod": "SignatureMethodDemo",
-        "SignatureNonce": "SignatureNonceDemo",
-        "SignatureVersion": "SignatureVersionDemo",
-        "Timestamp": "",
-        "To": "",
-        "Type": ""
+        "OutId": "",
+        "PhoneNumbers": " 6588583978",
+        "SignName": "",
+        "SmsUpExtendCode": "",
+        "TemplateCode": "",
+        "TemplateParam": ""
     },
     "multiValueQueryStringParameters": {
         "AccessKeyId": [
             ""
         ],
         "Action": [
-            "",
             ""
         ],
-        "Format": [
+        "OutId": [
             ""
         ],
-        "From": [
+        "PhoneNumbers": [
+            "1234567"
+        ],
+        "SignName": [
             ""
         ],
-        "Message": [
+        "SmsUpExtendCode": [
             ""
         ],
-        "Signature": [
-            "SignatureDemo"
-        ],
-        "SignatureMethod": [
-            "SignatureMethodDemo"
-        ],
-        "SignatureNonce": [
-            "SignatureNonceDemo"
-        ],
-        "SignatureVersion": [
-            "SignatureVersionDemo"
-        ],
-        "Timestamp": [
+        "TemplateCode": [
             ""
         ],
-        "To": [
-            ""
-        ],
-        "Type": [
+        "TemplateParam": [
             ""
         ]
     },
     "pathParameters": null,
     "stageVariables": null,
     "requestContext": {
-        "resourceId": "ikjdq2",
+        "resourceId": "w92y4i",
         "resourcePath": "/sms",
         "httpMethod": "POST",
-        "extendedRequestId": "R6V78Gl6vHcFW9g=",
-        "requestTime": "27/Aug/2020:04:29:38 +0000",
+        "extendedRequestId": "R93vyHIuvHcFjvg=",
+        "requestTime": "28/Aug/2020:06:11:10 +0000",
         "path": "/Prod/sms",
         "accountId": "705247044519",
         "protocol": "HTTP/1.1",
         "stage": "Prod",
-        "domainPrefix": "nt95hg3y23",
-        "requestTimeEpoch": 1598502578747,
-        "requestId": "513a8846-77f1-4840-9720-48a4b6f66072",
+        "domainPrefix": "whtn9osbhi",
+        "requestTimeEpoch": 1598595070503,
+        "requestId": "e95c304a-8993-4f20-b02a-7ded611a89ca",
         "identity": {
             "cognitoIdentityPoolId": null,
             "accountId": null,
             "cognitoIdentityId": null,
             "caller": null,
-            "sourceIp": "13.248.48.16",
+            "sourceIp": "13.248.48.7",
             "principalOrgId": null,
             "accessKey": null,
             "cognitoAuthenticationType": null,
@@ -168,9 +151,9 @@
             "userAgent": "PostmanRuntime/7.26.1",
             "user": null
         },
-        "domainName": "nt95hg3y23.execute-api.us-west-2.amazonaws.com",
-        "apiId": "nt95hg3y23"
+        "domainName": "whtn9osbhi.execute-api.us-west-2.amazonaws.com",
+        "apiId": "whtn9osbhi"
     },
-    "body": "{\"Number\": \"+123456\", \"SMS\": \"Test message from AWS!\"}",
+    "body": "Testing Message From AWS!",
     "isBase64Encoded": false
 }

@@ -12,7 +12,7 @@ Globals:
 Parameters:
   SNSorPinpoint:
     Type: String
-    Default: SNS
+    Default: Pinpoint
     Description: Backend Application.
   PinPointID:
     Type: String
@@ -20,11 +20,11 @@ Parameters:
     Description: Amazon Pinpint Application ID.
 
 Resources:
-  EventFanout:
+  SMSGatewayFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: src/
-      Handler: app.handler
+      Handler: smsGateway.handler
       Runtime: python3.8
       Environment:
         Variables:
@@ -88,6 +88,26 @@ Resources:
       #           Header: MyAuthorizationHeader # OPTIONAL; Default: 'Authorization'
       #           ValidationExpression: myauthvalidationexpression # OPTIONAL
 
+  SMSDeliveryReceiptFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: smsStream.handler
+      Runtime: python3.8
+      Timeout: 10
+      # Tracing: Active
+      Events:
+        Stream:
+          Type: Kinesis
+          Properties:
+            Stream: !GetAtt DeliveryReceiptStream.Arn
+            BatchSize: 100
+            StartingPosition: LATEST
+  DeliveryReceiptStream:
+    Type: AWS::Kinesis::Stream
+    Properties:
+      ShardCount: 1
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
@@ -95,9 +115,12 @@ Outputs:
   SmsSendApiUrl:
     Description: "API Gateway endpoint URL for Prod stage for SMS sending function"
     Value: !Sub "https://${SmsSendApi}.execute-api.${AWS::Region}.amazonaws.com/${SmsSendApi.Stage}/sms/"
-  EventFanout:
-    Description: "EventFanout Lambda Function ARN"
-    Value: !GetAtt EventFanout.Arn
-  EventFanoutIamRole:
-    Description: "Implicit IAM Role created for EventFanout function"
-    Value: !GetAtt EventFanoutRole.Arn
+  SMSGatewayFunction:
+    Description: "SMSGatewayFunction Lambda Function ARN"
+    Value: !GetAtt SMSGatewayFunction.Arn
+  SMSDeliveryReceiptFunction:
+    Description: "SMSDeliveryReceiptFunction Lambda Function"
+    Value: !Ref SMSDeliveryReceiptFunction
+  DeliveryReceiptStream:
+    Description: "DeliveryReceiptStream ARN"
+    Value: !GetAtt DeliveryReceiptStream.Arn

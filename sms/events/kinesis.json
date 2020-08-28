@@ -1,0 +1,28 @@
+{
+    "event_type": "_SMS.FAILURE",
+    "event_timestamp": 1598594864339,
+    "arrival_timestamp": 1598594864339,
+    "event_version": "3.1",
+    "application": {
+        "app_id": "1d205f0b0bb54f1a8499e1e60ce7f553",
+        "sdk": {}
+    },
+    "client": {
+        "client_id": "2jmj7l5rsw0yvb/vlwaykk/ybwk"
+    },
+    "device": {
+        "platform": {}
+    },
+    "session": {},
+    "attributes": {
+        "number_of_message_parts": "1",
+        "message_id": "fc3qremjc072gp5kmtvkltju34q3g2f5ckhrij00",
+        "sender_request_id": "3f112ae5-9061-40b2-89cb-3c2a846382e3",
+        "record_status": "Failed to send because phoneNumber provided is empty or null.",
+        "iso_country_code": "XX"
+    },
+    "metrics": {
+        "price_in_millicents_usd": 0
+    },
+    "awsAccountId": "705247044519"
+}

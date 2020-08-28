@@ -49,32 +49,27 @@ class DecimalEncoder(json.JSONEncoder):
 def handler(event, context):
 
     logger.info('invoke event %s' % json.dumps(event, indent=4, cls=DecimalEncoder))
-    content = event['body'].strip().replace('\"','').replace('\\','').replace('{','').replace('}','')
-    phoneNumberStart = content.find('+')
-    phoneNumberEnd = content.find(',')
-    msgStart = content.find(':', phoneNumberEnd)
+    # content = event['body'].strip().replace('\"','').replace('\\','').replace('{','').replace('}','')
+    # phoneNumberStart = content.find('+')
+    # phoneNumberEnd = content.find(',')
+    # msgStart = content.find(':', phoneNumberEnd)
 
     # The recipient's phone number.  For best results, you should specify the
     # phone number in E.164 format.
     # phoneNumber = "+6588583978"
-    phoneNumber = content[phoneNumberStart:phoneNumberEnd]
-
+    phoneNumber = event['queryStringParameters']['PhoneNumbers']
+    print("handler receive phone number {}".format(phoneNumber))
     # The content of the SMS message.
     # message = ('This is a sample message sent from Amazon Pinpoint by using the AWS SDK for Python (Boto 3). %s' % time.asctime(time.localtime(time.time())))
-    message = content[msgStart+1:].strip()
+    message = event['body']
+
     logger.info('send message \"%s\" to phone %s with %s' % (message, phoneNumber, SNSorPinpoint))
     response = {}
     if SNSorPinpoint == 'SNS':
         response = sms_handler(message, phoneNumber)
     else:
         response = pinpoint_handler(message, phoneNumber)
-
-    return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "resultOutput": response,
-        }),
-    }
+    return response
 
 def pinpoint_handler(message, phoneNumber):
 
@@ -153,7 +148,7 @@ def pinpoint_handler(message, phoneNumber):
         logger.error(e.response['Error']['Message'])
 
     else:
-        logger.info("Message sent by Pinpoint! result %s" % response['MessageResponse']['Result'][phoneNumber])
+        # logger.info("Message sent by Pinpoint! result %s" % response['MessageResponse']['Result'][phoneNumber])
         return {
             # mock for api gw
             "statusCode": 200,
@@ -161,6 +156,7 @@ def pinpoint_handler(message, phoneNumber):
                 "StatusCode": response['MessageResponse']['Result'][phoneNumber]['StatusCode'],
                 "DeliveryStatus": response['MessageResponse']['Result'][phoneNumber]['DeliveryStatus'],
                 "StatusMessage": response['MessageResponse']['Result'][phoneNumber]['StatusMessage'],
+                "MessageId": response['MessageResponse']['Result'][phoneNumber]['MessageId'],
                 # "location": ip.text.replace("\n", "")
             }),
         }
