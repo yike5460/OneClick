@@ -48,27 +48,27 @@ class DecimalEncoder(json.JSONEncoder):
 
 def handler(event, context):
 
-    logger.info('invoke event %s' % json.dumps(event, indent=4, cls=DecimalEncoder))
-    # content = event['body'].strip().replace('\"','').replace('\\','').replace('{','').replace('}','')
-    # phoneNumberStart = content.find('+')
-    # phoneNumberEnd = content.find(',')
-    # msgStart = content.find(':', phoneNumberEnd)
+    # logger.info('invoke event %s' % json.dumps(event, indent=4, cls=DecimalEncoder))
 
-    # The recipient's phone number.  For best results, you should specify the
-    # phone number in E.164 format.
-    # phoneNumber = "+6588583978"
-    phoneNumber = event['queryStringParameters']['PhoneNumbers']
-    print("handler receive phone number {}".format(phoneNumber))
     # The content of the SMS message.
     # message = ('This is a sample message sent from Amazon Pinpoint by using the AWS SDK for Python (Boto 3). %s' % time.asctime(time.localtime(time.time())))
     message = event['body']
-
-    logger.info('send message \"%s\" to phone %s with %s' % (message, phoneNumber, SNSorPinpoint))
     response = {}
-    if SNSorPinpoint == 'SNS':
-        response = sms_handler(message, phoneNumber)
-    else:
+    if event['rawPath'] == "/Prod/smsBatch":
+        phoneNumberList = event['queryStringParameters']['PhoneNumberJson'].replace("\"", "").replace(" ", "").replace("[", "").replace("]", "").split(",")
+        for phoneNumber in phoneNumberList:
+            logger.info('send message \"%s\" to phone number %s with %s' % (message, phoneNumber, SNSorPinpoint))
+            response = pinpoint_handler(message, phoneNumber)
+    elif event['rawPath'] == "/Prod/sms":
+        # The recipient's phone number. For best results, you should specify the phone number in E.164 format.
+        phoneNumber = event['queryStringParameters']['PhoneNumbers']
+        logger.info('send message \"%s\" to phone number %s with %s' % (message, phoneNumber, SNSorPinpoint))
         response = pinpoint_handler(message, phoneNumber)
+
+    # if SNSorPinpoint == 'SNS':
+    #     response = sms_handler(message, phoneNumber)
+    # else:
+    #     response = pinpoint_handler(message, phoneNumber)
     return response
 
 def pinpoint_handler(message, phoneNumber):
@@ -99,6 +99,7 @@ def pinpoint_handler(message, phoneNumber):
     # https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
     senderId = "SenderIdAWS"
 
+    # refer to https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pinpoint.html#Pinpoint.Client.send_messages
     try:
         response = pinpoint.send_messages(
             ApplicationId=applicationId,
@@ -157,10 +158,12 @@ def pinpoint_handler(message, phoneNumber):
                 "DeliveryStatus": response['MessageResponse']['Result'][phoneNumber]['DeliveryStatus'],
                 "StatusMessage": response['MessageResponse']['Result'][phoneNumber]['StatusMessage'],
                 "MessageId": response['MessageResponse']['Result'][phoneNumber]['MessageId'],
-                # "location": ip.text.replace("\n", "")
             }),
         }
 
+'''
+OSOLETE for no message delivery status support
+'''
 def sms_handler(message, phoneNumber):
 
     # Replace following with your SNS ARN 

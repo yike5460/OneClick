@@ -43,6 +43,12 @@ Resources:
             ApiId: !Ref SmsSendApi
             Path: /sms
             Method: POST
+        SmsBatchSendAPI:
+          Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            ApiId: !Ref SmsBatchSendApi
+            Path: /smsBatch
+            Method: POST
       Policies:
           - AmazonSNSFullAccess
           # - PinpointSMS:
@@ -94,6 +100,11 @@ Resources:
       #           Header: MyAuthorizationHeader # OPTIONAL; Default: 'Authorization'
       #           ValidationExpression: myauthvalidationexpression # OPTIONAL
 
+  SmsBatchSendApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: Prod
+
   SMSDeliveryReceiptFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -127,6 +138,9 @@ Outputs:
   SmsSendApiUrl:
     Description: "API Gateway endpoint URL for Prod stage for SMS sending function"
     Value: !Sub "https://${SmsSendApi}.execute-api.${AWS::Region}.amazonaws.com/${SmsSendApi.Stage}/sms/"
+  SmsBatchSendApiUrl:
+    Description: "API Gateway endpoint URL for Prod stage for SMS batch sending function"
+    Value: !Sub "https://${SmsBatchSendApi}.execute-api.${AWS::Region}.amazonaws.com/${SmsSendApi.Stage}/smsBatch/"
   SMSGatewayFunction:
     Description: "SMSGatewayFunction Lambda Function ARN"
     Value: !GetAtt SMSGatewayFunction.Arn

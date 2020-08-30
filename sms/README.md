@@ -1,9 +1,17 @@
-# SMS function
+# 方案特性
+- 短信发送
+- 短信状态回执
+其中短信状态回执信息的具体释义参见[sms属性](https://docs.aws.amazon.com/zh_cn/pinpoint/latest/developerguide/event-streams-data-sms.html#event-streams-data-sms-attributes "sms属性")
+
+# 方案架构
+
+
+# 方案部署
 目前方案的后端可以选择[SNS(Simple Notification Service)](https://aws.amazon.com/sns/ "SNS(Simple Notification Service)")或者[Pinpoint](https://aws.amazon.com/pinpoint/ "Pinpoint")来实现，通过部署时参数输入来选择何种服务实现。两者均能实现短信消息的发送功能，细节差异如下表：
 |   | 可用区域 | 发送状态 | 短信模版 | 语音 | 双向SMS消息 | 批量发送 |
 | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ |
-| SNS  | 全球可用，国内的SNS下的SMS待定 | 仅有HTTPStatusCode | 暂未支持  | 暂未支持 | 暂未支持 | 需要API实现 |
-| Pinpoint | 目前6个可用区域，地域最近的是孟买和悉尼 | DeliveryStatus和StatusCode | 支持  | 支持 | 支持 | 需要API实现 |
+| SNS | 全球可用，国内的SNS下的SMS待定 | 仅有HTTPStatusCode | 暂未支持 | 暂未支持 | 暂未支持 | 需要API实现 |
+| Pinpoint | 目前6个可用区域，地域最近的是孟买和悉尼 | DeliveryStatus和StatusCode，短信状态回执 | 支持 | 支持 | 支持 | 需要API实现 |
 
 注意Pinpoint有金额的限制，会影响能可发送短信的数量。点击此处[了解如何提高该限额](https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-awssupport-spend-threshold.html "了解如何提高该限额")
 

@@ -1,0 +1,52 @@
+{
+    "version": "2.0",
+    "routeKey": "POST /smsBatch",
+    "rawPath": "/Prod/smsBatch",
+    "rawQueryString": "PhoneNumberJson=[%22+6588583978%22,%2213500000000%22]&SignNameJson&TemplateCode&AccessKeyId&Action=&OutId=&SmsUpExtendCodeJson=&TemplateParamJson=",
+    "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "authorization": "AWS4-HMAC-SHA256 Credential=AKIA2IM774OT4I2E3E35/20200830/us-west-2/execute-api/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=d59b7b54c5de12132b41d68e8b6c6eefad059465e6b35e0f4e6ac2331ecfaee6",
+        "content-length": "25",
+        "content-type": "text/plain",
+        "host": "bu8ldy40xe.execute-api.us-west-2.amazonaws.com",
+        "postman-token": "70637a12-e332-4270-802f-0150d824392d",
+        "user-agent": "PostmanRuntime/7.26.1",
+        "x-amz-content-sha256": "2260c6aee4492743c0dd6c311555df0280b167638865ce3b1afceb008d4842ff",
+        "x-amz-date": "20200830T135438Z",
+        "x-amzn-trace-id": "Root=1-5f4baf9e-e36667a7106dd2dd6cfbc0cd",
+        "x-forwarded-for": "205.251.233.178",
+        "x-forwarded-port": "443",
+        "x-forwarded-proto": "https"
+    },
+    "queryStringParameters": {
+        "AccessKeyId": "",
+        "Action": "",
+        "OutId": "",
+        "PhoneNumberJson": "[\" 6588583978\",\"13500000000\"]",
+        "SignNameJson": "",
+        "SmsUpExtendCodeJson": "",
+        "TemplateCode": "",
+        "TemplateParamJson": ""
+    },
+    "requestContext": {
+        "accountId": "705247044519",
+        "apiId": "bu8ldy40xe",
+        "domainName": "bu8ldy40xe.execute-api.us-west-2.amazonaws.com",
+        "domainPrefix": "bu8ldy40xe",
+        "http": {
+            "method": "POST",
+            "path": "/Prod/smsBatch",
+            "protocol": "HTTP/1.1",
+            "sourceIp": "205.251.233.178",
+            "userAgent": "PostmanRuntime/7.26.1"
+        },
+        "requestId": "SFhgyhV_PHcEMXg=",
+        "routeKey": "POST /smsBatch",
+        "stage": "Prod",
+        "time": "30/Aug/2020:13:54:38 +0000",
+        "timeEpoch": 1598795678512
+    },
+    "body": "Test from AWS Pinpoint！",
+    "isBase64Encoded": false
+}
