@@ -50,13 +50,12 @@ Resources:
             Path: /smsBatch
             Method: POST
       Policies:
-          - AmazonSNSFullAccess
-          # - PinpointSMS:
-          #     Statement:
-          #     - Effect: Allow
-          #       Action: 
-          #         - mobiletargeting: '*'
-          #       Resource: '*'
+        # - AWSLambdaExecute # Managed Policy
+        - Version: '2012-10-17' # Policy Document
+          Statement:
+            - Effect: Allow
+              Action: mobiletargeting:*
+              Resource: '*'
 
   SmsSendApi:
     Type: AWS::Serverless::HttpApi

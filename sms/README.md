@@ -56,7 +56,7 @@ Value               https://<xxxx>.execute-api.us-west-2.amazonaws.com/Prod/sms/
 
 ```
 
-## IAM policy （如果您选择Pinpoint作为后端发送服务，目前需要手动设置此项）
+## IAM policy （如果您选择Pinpoint作为后端发送服务，目前已经自动设置，可以忽略）
 create Pinpoint policy and attach to deployed Lambda function manually
 ```json
 {
