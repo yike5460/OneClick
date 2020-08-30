@@ -76,9 +76,9 @@ create Pinpoint policy and attach to deployed Lambda function manually
 将stream event设置为SAM创建好的Kinesis Data Stream，同时自动创建IAM Role
 
 ## VPC的创建（挂载到消息回执的Lambda函数）
-通过wizard创建public和private vpc，记录对应的subnet id和security group id，用作SAM模版的参数
+通过wizard创建public和private vpc，记录对应的subnet id和security group id，用作SAM模版的参数。该配置的作用目前用于方便客户段白名单IP地址的配置，由于短信消息的回执状态需要通过URL POST的方式发送到客户指定的URL，白名单的方案意味着需要针对所有Lambda的源地址实现白名单，由于目前Lambda的IP网段同EC2网段复用，客户端的白名单将是一个巨大的量级，通过VPC+NAT Gatewa的方式只需要将NAT Gateway绑定的弹性IP加入到白名单即可。另外一种方式是客户端在每个region额外开启EC2实例来规避白名单造成的特性实现限制和额外费用开销。
 
-## send SMS directly
+## 通过HTTP接口发送短信
 其中URL为您部署的API Gateway所输出的URL，它作为您触发短信发送的RESFUL入口，目前仅支持POST操作
 ```shell
 curl --location --request POST 'https://xxxx.execute-api.us-west-2.amazonaws.com/Prod/sms?PhoneNumbers=+xxxx&SignName&TemplateCode&AccessKeyId&Action=&OutId=&SmsUpExtendCode=&TemplateParam=' \
@@ -90,3 +90,15 @@ curl --location --request POST 'https://xxxx.execute-api.us-west-2.amazonaws.com
 ```
 您也可以通过Postman来操作，见下图所示
 ![Postman](https://github.com/yike5460/OneClick/blob/master/sms/img/postman.png)
+
+## 通过HTTP接口发送短信（批量发送）
+```shell
+curl --location --request POST 'https://xxxx.execute-api.us-west-2.amazonaws.com/Prod/smsBatch?PhoneNumberJson=[%22+xxxx%22,%22+xxxx%22]&SignNameJson&TemplateCode&AccessKeyId&Action=&OutId=&SmsUpExtendCodeJson=&TemplateParamJson=' \
+--header 'X-Amz-Content-Sha256: xxxx' \
+--header 'X-Amz-Date: 20200830T135441Z' \
+--header 'Authorization: AWS4-HMAC-SHA256 Credential=xxxx/20200830/us-west-2/execute-api/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=xxxx' \
+--header 'Content-Type: text/plain' \
+--data-raw '<your short message to send>'
+```
+您也可以通过Postman来操作，见下图所示
+![PostmanBatch](https://github.com/yike5460/OneClick/blob/master/sms/img/postmanBatch.png)
