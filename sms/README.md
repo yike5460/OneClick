@@ -38,7 +38,9 @@ SAM CLI, version 0.47.0
 ## 部署SAM（API Gateway，Lambda）
 ```shell
 # 测试短信发送
-# sam build && sam local invoke "SMSGatewayFunction" -e events/event.json
+# sam build && sam local invoke "SMSGatewayFunction" -e events/httpAPI.json
+# 测试短信模版创建
+# sam build && sam local invoke "SMSGatewayFunction" -e events/createTemplate.json
 # 测试短信回执
 # sam build && sam local invoke "SMSDeliveryReceiptFunction" -e events/kinesis.json
 # sam deploy -g (其中SNSorPinpoint输入SNS或者Pinpoint，PinPointID输入您刚才创建的Project ID，注意您如果不用Pinpoint的话该选项可以忽略)
@@ -88,6 +90,7 @@ curl --location --request POST 'https://xxxx.execute-api.us-west-2.amazonaws.com
 --header 'Content-Type: text/plain' \
 --data-raw '<your short message to send>'
 ```
+
 您也可以通过Postman来操作，见下图所示
 ![Postman](https://github.com/yike5460/OneClick/blob/master/sms/img/postman.png)
 
@@ -100,5 +103,20 @@ curl --location --request POST 'https://xxxx.execute-api.us-west-2.amazonaws.com
 --header 'Content-Type: text/plain' \
 --data-raw '<your short message to send>'
 ```
+
 您也可以通过Postman来操作，见下图所示
 ![PostmanBatch](https://github.com/yike5460/OneClick/blob/master/sms/img/postmanBatch.png)
+
+## 通过HTTP接口创建短信模版
+```shell
+curl --location --request POST 'https://xxxx.execute-api.us-west-2.amazonaws.com/Prod/smsTemplateCreate?TemplateType=0&TemplateName=AWSTemplateLambda&TemplateContent=content%20for%20AWS%20template&Remark=demo%20usage&Action=smsTemplateCreate&AccessKeyId=' \
+--header 'X-Amz-Content-Sha256: xxxx' \
+--header 'X-Amz-Date: 20200831T044404Z' \
+--header 'Authorization: AWS4-HMAC-SHA256 Credential=xxxx/20200831/us-west-2/execute-api/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=xxxx' \
+--header 'Content-Type: text/plain' \
+--data-raw 'AWS Test Message'
+```
+
+您也可以通过Postman来操作，见下图所示
+![PostmanCreateTemplate](https://github.com/yike5460/OneClick/blob/master/sms/img/postmanCreateTemplate.png)
+

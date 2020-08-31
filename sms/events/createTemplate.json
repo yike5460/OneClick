@@ -1,0 +1,50 @@
+{
+    "version": "2.0",
+    "routeKey": "POST /smsTemplateCreate",
+    "rawPath": "/Prod/smsTemplateCreate",
+    "rawQueryString": "TemplateType=0&TemplateName=AWSTemplate&TemplateContent=content%20for%20AWS%20template&Remark=demo%20usage&Action=&AccessKeyId=",
+    "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "authorization": "AWS4-HMAC-SHA256 Credential=AKIA2IM774OT4I2E3E35/20200831/us-west-2/execute-api/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=77d8223b56bc94adc32c58fdf3abb8b4e86a89d34eb69770a044c7d43d89616b",
+        "content-length": "16",
+        "content-type": "text/plain",
+        "host": "awrq6osuea.execute-api.us-west-2.amazonaws.com",
+        "postman-token": "c6d09e68-087d-4a1b-aa57-4947a3bd4407",
+        "user-agent": "PostmanRuntime/7.26.1",
+        "x-amz-content-sha256": "4790ccba5892820fbdaa2077cc6c8caefca5b80df7c8ac48ead8b10d30f6069c",
+        "x-amz-date": "20200831T040319Z",
+        "x-amzn-trace-id": "Root=1-5f4c7687-fe6634902124ab283d44c094",
+        "x-forwarded-for": "205.251.233.176",
+        "x-forwarded-port": "443",
+        "x-forwarded-proto": "https"
+    },
+    "queryStringParameters": {
+        "AccessKeyId": "",
+        "Action": "",
+        "Remark": "demo usage",
+        "TemplateContent": "content for AWS template",
+        "TemplateName": "AWSTemplate",
+        "TemplateType": "0"
+    },
+    "requestContext": {
+        "accountId": "705247044519",
+        "apiId": "awrq6osuea",
+        "domainName": "awrq6osuea.execute-api.us-west-2.amazonaws.com",
+        "domainPrefix": "awrq6osuea",
+        "http": {
+            "method": "POST",
+            "path": "/Prod/smsTemplateCreate",
+            "protocol": "HTTP/1.1",
+            "sourceIp": "205.251.233.176",
+            "userAgent": "PostmanRuntime/7.26.1"
+        },
+        "requestId": "SHd1MilgPHcEPbg=",
+        "routeKey": "POST /smsTemplateCreate",
+        "stage": "Prod",
+        "time": "31/Aug/2020:04:03:19 +0000",
+        "timeEpoch": 1598846599531
+    },
+    "body": "AWS Test Message",
+    "isBase64Encoded": false
+}

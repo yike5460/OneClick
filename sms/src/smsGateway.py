@@ -20,8 +20,9 @@ import json
 import logging
 from os import getenv
 from botocore.exceptions import ClientError
+
 sns = boto3.client('sns') 
-pinpoint = boto3.client('pinpoint', region_name="us-west-2")
+pinpoint = boto3.client('pinpoint')
 SNSorPinpoint = getenv('SNSorPinpoint')
 PinPointID = getenv('PinPointID')
 
@@ -48,30 +49,49 @@ class DecimalEncoder(json.JSONEncoder):
 
 def handler(event, context):
 
-    # logger.info('invoke event %s' % json.dumps(event, indent=4, cls=DecimalEncoder))
+    logger.info('invoke event %s' % json.dumps(event, indent=4, cls=DecimalEncoder))
 
     # The content of the SMS message.
     # message = ('This is a sample message sent from Amazon Pinpoint by using the AWS SDK for Python (Boto 3). %s' % time.asctime(time.localtime(time.time())))
     message = event['body']
     response = {}
+
     if event['rawPath'] == "/Prod/smsBatch":
         phoneNumberList = event['queryStringParameters']['PhoneNumberJson'].replace("\"", "").replace(" ", "").replace("[", "").replace("]", "").split(",")
+        signName = event['queryStringParameters']['SignNameJson']
         for phoneNumber in phoneNumberList:
             logger.info('send message \"%s\" to phone number %s with %s' % (message, phoneNumber, SNSorPinpoint))
-            response = pinpoint_handler(message, phoneNumber)
+            response = pinpoint_handler(message, phoneNumber, signName)
     elif event['rawPath'] == "/Prod/sms":
         # The recipient's phone number. For best results, you should specify the phone number in E.164 format.
         phoneNumber = event['queryStringParameters']['PhoneNumbers']
+        signName = event['queryStringParameters']['SignName']
         logger.info('send message \"%s\" to phone number %s with %s' % (message, phoneNumber, SNSorPinpoint))
-        response = pinpoint_handler(message, phoneNumber)
-
+        response = pinpoint_handler(message, phoneNumber, signName)
+    elif event['rawPath'] == "/Prod/smsTemplateCreate":
+        responseTmp = pinpoint.create_sms_template(
+            SMSTemplateRequest={
+                'Body': event['queryStringParameters']['TemplateContent'],
+                # 'DefaultSubstitutions': 'string',
+                # 'RecommenderId': 'string',
+                # 'tags': {
+                #     'string': 'string'
+                # },
+                'TemplateDescription': event['queryStringParameters']['Remark']
+            },
+            TemplateName=event['queryStringParameters']['TemplateName']
+        )
+        response['Code'] = responseTmp['ResponseMetadata']['HTTPStatusCode']
+        response['Message'] = responseTmp['CreateTemplateMessageBody']['Message']
+        response['RequestID'] = responseTmp['CreateTemplateMessageBody']['RequestID']
+        response['TemplateCode'] = responseTmp['CreateTemplateMessageBody']['Arn']
     # if SNSorPinpoint == 'SNS':
     #     response = sms_handler(message, phoneNumber)
     # else:
     #     response = pinpoint_handler(message, phoneNumber)
     return response
 
-def pinpoint_handler(message, phoneNumber):
+def pinpoint_handler(message, phoneNumber, signName):
 
     # raise 1$ quota limitation for pinpoint sms sending function, refer to
     # https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-awssupport-spend-threshold.html
@@ -95,9 +115,9 @@ def pinpoint_handler(message, phoneNumber):
     registeredKeyword = ""
 
     # The sender ID to use when sending the message. Support for sender ID
-    # varies by country or region. For more information, see
-    # https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
-    senderId = "SenderIdAWS"
+    # varies by country or region. https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
+    # way to request sender ID https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-awssupport-sender-id.html
+    senderId = signName
 
     # refer to https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pinpoint.html#Pinpoint.Client.send_messages
     try:

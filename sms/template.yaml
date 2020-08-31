@@ -46,8 +46,14 @@ Resources:
         SmsBatchSendAPI:
           Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            ApiId: !Ref SmsBatchSendApi
+            ApiId: !Ref SmsSendApi
             Path: /smsBatch
+            Method: POST
+        SmsTemplateCreateAPI:
+          Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            ApiId: !Ref SmsTemplateApi
+            Path: /smsTemplateCreate
             Method: POST
       Policies:
         # - AWSLambdaExecute # Managed Policy
@@ -99,7 +105,7 @@ Resources:
       #           Header: MyAuthorizationHeader # OPTIONAL; Default: 'Authorization'
       #           ValidationExpression: myauthvalidationexpression # OPTIONAL
 
-  SmsBatchSendApi:
+  SmsTemplateApi:
     Type: AWS::Serverless::HttpApi
     Properties:
       StageName: Prod
@@ -139,7 +145,10 @@ Outputs:
     Value: !Sub "https://${SmsSendApi}.execute-api.${AWS::Region}.amazonaws.com/${SmsSendApi.Stage}/sms/"
   SmsBatchSendApiUrl:
     Description: "API Gateway endpoint URL for Prod stage for SMS batch sending function"
-    Value: !Sub "https://${SmsBatchSendApi}.execute-api.${AWS::Region}.amazonaws.com/${SmsSendApi.Stage}/smsBatch/"
+    Value: !Sub "https://${SmsSendApi}.execute-api.${AWS::Region}.amazonaws.com/${SmsSendApi.Stage}/smsBatch/"
+  SmsTemplateCreateApiUrl:
+    Description: "API Gateway endpoint URL for Prod stage for SMS template create function"
+    Value: !Sub "https://${SmsTemplateApi}.execute-api.${AWS::Region}.amazonaws.com/${SmsTemplateApi.Stage}/smsTemplateCreate/"
   SMSGatewayFunction:
     Description: "SMSGatewayFunction Lambda Function ARN"
     Value: !GetAtt SMSGatewayFunction.Arn
