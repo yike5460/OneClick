@@ -18,12 +18,12 @@ Parameters:
     Type: String
     Default: "1d205f0b0bb54f1a8499e1e60ce7f553"
     Description: Amazon Pinpint Application ID.
-  SecurityGroupIds: 
-    Type: List<AWS::EC2::SecurityGroup::Id>
-    Description: Security Group IDs that Lambda will use
-  VpcSubnetIds: 
-    Type: List<AWS::EC2::Subnet::Id>
-    Description: VPC Subnet IDs that Lambda will use (min 2 for HA)
+  # SecurityGroupIds: 
+  #   Type: List<AWS::EC2::SecurityGroup::Id>
+  #   Description: Security Group IDs that Lambda will use
+  # VpcSubnetIds: 
+  #   Type: List<AWS::EC2::Subnet::Id>
+  #   Description: VPC Subnet IDs that Lambda will use (min 2 for HA)
 
 Resources:
   SMSGatewayFunction:
@@ -117,9 +117,9 @@ Resources:
       Handler: smsStream.handler
       Runtime: python3.8
       Timeout: 10
-      VpcConfig:
-        SecurityGroupIds: !Ref SecurityGroupIds
-        SubnetIds: !Ref VpcSubnetIds
+      # VpcConfig:
+      #   SecurityGroupIds: !Ref SecurityGroupIds
+      #   SubnetIds: !Ref VpcSubnetIds
       # Tracing: Active
       Events:
         Stream:
