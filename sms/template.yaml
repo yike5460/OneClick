@@ -116,7 +116,7 @@ Resources:
       CodeUri: src/
       Handler: smsStream.handler
       Runtime: python3.8
-      Timeout: 10
+      Timeout: 180
       # VpcConfig:
       #   SecurityGroupIds: !Ref SecurityGroupIds
       #   SubnetIds: !Ref VpcSubnetIds

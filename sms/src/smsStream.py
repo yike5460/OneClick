@@ -44,11 +44,11 @@ class DecimalEncoder(json.JSONEncoder):
                 return int(o)
         return super(DecimalEncoder, self).default(o)
 
-
-hookURL = "http://223.119.32.245:1816/sms/cgi"
+hookURL = "http://44.226.222.87:1816/sms/cgi"
 
 def handler(event, context):
 
+    finalPayloadList = []
     for record in event['Records']:
 
         # kinesis data is base64 encoded so decode here
@@ -193,6 +193,13 @@ def handler(event, context):
             finalPayload['metrics_price'] = json.loads(rawStringData)["metrics"]["price_in_millicents_usd"]
         else:
             logger.info('none attributes matched, return null value instead!')
-        print(finalPayload)
-        # response = requests.request("POST", hookURL, headers=headers, data = json.dumps(finalPayload))
-        # print(response.text.encode('utf8'))
+        finalPayloadList.append(finalPayload)
+
+    print(json.dumps(finalPayloadList))
+
+    # send back to fixed customer url
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", hookURL, headers=headers, data = json.dumps(finalPayloadList))
+    print(response.text.encode('utf8'))
