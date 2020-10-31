@@ -120,3 +120,6 @@ curl --location --request POST 'https://xxxx.execute-api.us-west-2.amazonaws.com
 您也可以通过Postman来操作，见下图所示
 ![PostmanCreateTemplate](https://github.com/yike5460/OneClick/blob/master/sms/img/postmanCreateTemplate.png)
 
+您可以通过内置的Lambda函数实现短信回执消息自动发送到服务接收端，也可以通过手动的方式利用postman进行测试服务端的功能，见下图所示
+![receiveStatusSend](https://github.com/yike5460/OneClick/blob/master/sms/img/receiveStatusSend.png)
+
