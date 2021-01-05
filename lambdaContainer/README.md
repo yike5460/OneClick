@@ -146,5 +146,9 @@ With .zip archive functions, custom runtimes are added using Lambda layers. With
 You can build your own custom runtime images starting with AWS provided base images for custom runtimes. You can add your preferred runtime, dependencies, and code to these images. To communicate with Lambda, the image must implement the Lambda Runtime API. We provide Lambda runtime interface clients for all supported runtimes, or you can implement your own for additional runtimes.
 
 
-# reference
-https://aws.amazon.com/blogs/compute/working-with-lambda-layers-and-extensions-in-container-images/
+# Reference
+Container image support: https://aws.amazon.com/blogs/aws/new-for-aws-lambda-container-image-support/
+Lambda layer and extension in container image: https://aws.amazon.com/blogs/compute/working-with-lambda-layers-and-extensions-in-container-images/
+
+ECR public registry: https://aws.amazon.com/blogs/aws/amazon-ecr-public-a-new-public-container-registry/
+Lambda extension: https://aws.amazon.com/blogs/compute/using-aws-lambda-extensions-to-send-logs-to-custom-destinations/
