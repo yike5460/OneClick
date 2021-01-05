@@ -1,0 +1,48 @@
+FROM lambci/lambda-base:build as build-image
+
+# ---- Add layer start ----
+ARG AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-"cn-northwest-1"}
+ARG AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-"xxxx"}
+ARG AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-"xxxx"}
+ENV AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
+RUN yum install -y curl unzip
+
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
+
+# RUN mkdir -p /opt
+
+# ocrTesseract
+RUN curl $(aws lambda get-layer-version-by-arn --arn arn:aws-cn:lambda:cn-northwest-1:xxxx:layer:ocrTesseract:3 --query 'Content.Location' --output text) --output layer.zip
+RUN unzip layer.zip -d /opt
+RUN rm layer.zip
+
+# pythonlibs-layer
+RUN curl $(aws lambda get-layer-version-by-arn --arn arn:aws-cn:lambda:cn-northwest-1:xxxx:layer:pythonlibs-layer:1 --query 'Content.Location' --output text) --output layer.zip
+RUN unzip layer.zip -d /opt
+RUN rm layer.zip
+# ---- Add layer done ----
+
+
+FROM public.ecr.aws/lambda/python:3.7
+
+COPY --from=build-image /opt /opt
+COPY app.py   ./
+CMD ["app.handler"] 
+
+#### execute shell command below for further usage ####
+## build/tag/login/push to ECR (local)
+# docker build -t local-lambda-python3.8-custom-ocr --build-arg AWS_DEFAULT_REGION=cn-northwest-1 --build-arg AWS_ACCESS_KEY_ID=xxxx --build-arg AWS_SECRET_ACCESS_KEY=xxxx -f dockerfile-custom-tesseract .
+# docker tag local-lambda-python3.8-custom-ocr:latest xxxx.dkr.ecr.cn-northwest-1.amazonaws.com.cn/local-lambda-python3.8-custom-ocr
+# aws ecr get-login-password --region cn-northwest-1 | docker login --username AWS --password-stdin xxxx.dkr.ecr.cn-northwest-1.amazonaws.com.cn
+# docker push xxxx.dkr.ecr.cn-northwest-1.amazonaws.com.cn/local-lambda-python3.8-custom-ocr:latest
+
+# docker build -t local-lambda-python3.8-official-ocr --build-arg AWS_DEFAULT_REGION=cn-northwest-1 --build-arg AWS_ACCESS_KEY_ID=xxxx --build-arg AWS_SECRET_ACCESS_KEY=xxxx -f dockerfile-official-tesseract .
+
+# docker run -p 9000:8080 local-lambda-python3.8-official-ocr:latest
+
+# curl -X POST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"payload":"hello world!"}'
